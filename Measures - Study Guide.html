@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Measures – Leonor's Study Guide</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
+    background: #fffde7;
+    color: #333;
+    padding: 20px;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 2.4em;
+    color: #e65100;
+    background: linear-gradient(135deg, #fff9c4, #ffe082);
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 24px;
+    border: 4px solid #ffb300;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  h2 {
+    font-size: 1.6em;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 14px;
+    margin: 28px 0 16px 0;
+  }
+
+  h3 {
+    font-size: 1.2em;
+    color: #4a148c;
+    margin: 16px 0 8px 0;
+  }
+
+  .section { margin-bottom: 32px; }
+
+  /* VOCABULARY */
+  .vocab-header { background: #7b1fa2; }
+  .vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 14px;
+  }
+  .vocab-card {
+    background: #f3e5f5;
+    border: 3px solid #ce93d8;
+    border-radius: 14px;
+    padding: 14px;
+    text-align: center;
+  }
+  .vocab-word {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #6a1b9a;
+    margin-bottom: 6px;
+  }
+  .vocab-def { font-size: 0.95em; color: #555; }
+
+  /* KEY RULES */
+  .rules-header { background: #1565c0; }
+  .rules-box {
+    background: #e3f2fd;
+    border: 3px solid #64b5f6;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+  .rule-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 14px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 12px 16px;
+    border-left: 6px solid #1565c0;
+  }
+  .rule-icon { font-size: 2em; flex-shrink: 0; }
+  .rule-text { font-size: 1em; color: #333; line-height: 1.5; }
+  .rule-text strong { color: #1565c0; }
+
+  /* CM VS M */
+  .units-header { background: #2e7d32; }
+  .units-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .unit-box {
+    border-radius: 16px;
+    padding: 18px;
+    text-align: center;
+  }
+  .cm-box { background: #e8f5e9; border: 3px solid #81c784; }
+  .m-box  { background: #fff3e0; border: 3px solid #ffb74d; }
+  .unit-title { font-size: 1.8em; font-weight: bold; margin-bottom: 10px; }
+  .cm-box .unit-title { color: #2e7d32; }
+  .m-box  .unit-title { color: #e65100; }
+  .unit-rule { font-size: 0.95em; background: #fff; border-radius: 10px; padding: 8px; margin-bottom: 6px; }
+  .unit-examples { font-size: 0.9em; margin-top: 8px; color: #555; }
+
+  /* RULER TIPS */
+  .tips-header { background: #c62828; }
+  .tip-card {
+    background: #ffebee;
+    border: 3px solid #ef9a9a;
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 12px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  .tip-icon { font-size: 2.2em; flex-shrink: 0; }
+  .tip-text { font-size: 1em; color: #333; line-height: 1.5; }
+  .tip-text strong { color: #c62828; }
+
+  /* RULER VISUAL */
+  .ruler-container {
+    background: #fffde7;
+    border: 3px solid #ffd54f;
+    border-radius: 14px;
+    padding: 20px;
+    text-align: center;
+    margin: 16px 0;
+  }
+  .ruler {
+    display: inline-flex;
+    align-items: flex-end;
+    background: #ffecb3;
+    border: 3px solid #f9a825;
+    border-radius: 6px;
+    padding: 8px 10px 4px 10px;
+    gap: 0;
+    margin-bottom: 8px;
+  }
+  .tick {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30px;
+  }
+  .tick-line-long  { width: 2px; height: 18px; background: #5d4037; margin-bottom: 2px; }
+  .tick-line-short { width: 2px; height: 10px; background: #8d6e63; margin-bottom: 10px; }
+  .tick-num { font-size: 0.75em; font-weight: bold; color: #4e342e; }
+
+  .ruler-note { font-size: 0.95em; color: #555; margin-top: 6px; }
+
+  /* PRACTICE */
+  .practice-header { background: #00695c; }
+  .exercise {
+    background: #e0f2f1;
+    border: 3px solid #80cbc4;
+    border-radius: 14px;
+    padding: 18px;
+    margin-bottom: 16px;
+  }
+  .exercise-num {
+    display: inline-block;
+    background: #00695c;
+    color: #fff;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    text-align: center;
+    line-height: 32px;
+    font-weight: bold;
+    margin-right: 8px;
+    font-size: 1em;
+  }
+  .exercise-q { font-size: 1em; margin-bottom: 12px; }
+
+  /* Answer boxes */
+  .answer-line {
+    display: inline-block;
+    border-bottom: 2.5px solid #00695c;
+    min-width: 80px;
+    margin: 0 6px;
+    vertical-align: bottom;
+    height: 22px;
+  }
+  .answer-box {
+    display: inline-block;
+    border: 2.5px solid #00695c;
+    border-radius: 6px;
+    min-width: 80px;
+    height: 28px;
+    margin: 4px 6px;
+    vertical-align: middle;
+    background: #fff;
+  }
+
+  /* Compare table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 0.95em;
+  }
+  th {
+    background: #00695c;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    border-radius: 4px;
+  }
+  td {
+    padding: 10px;
+    border: 2px solid #80cbc4;
+    text-align: center;
+    background: #fff;
+  }
+
+  /* Line drawing exercise */
+  .line-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 10px 14px;
+    border: 2px solid #b2dfdb;
+  }
+  .line-label { font-weight: bold; color: #00695c; min-width: 30px; }
+  .drawn-line {
+    height: 4px;
+    background: #00695c;
+    border-radius: 2px;
+  }
+  .line-cm { font-size: 0.9em; color: #555; white-space: nowrap; }
+
+  /* Choose cm or m */
+  .choose-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 10px;
+    margin-top: 8px;
+  }
+  .choose-card {
+    background: #fff;
+    border: 2.5px solid #80cbc4;
+    border-radius: 12px;
+    padding: 12px 10px;
+    text-align: center;
+    font-size: 0.95em;
+  }
+  .choose-card .obj-icon { font-size: 2em; display: block; margin-bottom: 6px; }
+  .choose-card .obj-name { font-weight: bold; color: #004d40; margin-bottom: 8px; }
+  .choose-options { display: flex; justify-content: center; gap: 8px; }
+  .choose-btn {
+    border: 2px solid #ccc;
+    border-radius: 20px;
+    padding: 4px 10px;
+    font-size: 0.82em;
+    cursor: pointer;
+    background: #f5f5f5;
+    font-family: inherit;
+    font-weight: bold;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .choose-btn:hover { background: #e0f7fa; border-color: #0097a7; }
+  .choose-btn.selected-cm { background: #c8e6c9; border-color: #388e3c; color: #1b5e20; }
+  .choose-btn.selected-m  { background: #ffe0b2; border-color: #f57c00; color: #bf360c; }
+  .choose-btn.correct     { background: #a5d6a7 !important; border-color: #2e7d32 !important; }
+  .choose-btn.wrong       { background: #ef9a9a !important; border-color: #c62828 !important; }
+
+  /* Ordering */
+  .order-set {
+    background: #fff;
+    border-radius: 10px;
+    padding: 12px;
+    border: 2px solid #b2dfdb;
+    margin-bottom: 10px;
+  }
+  .order-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .order-item {
+    background: #b2ebf2;
+    border: 2px solid #0097a7;
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-weight: bold;
+    color: #006064;
+    font-size: 0.9em;
+  }
+  .order-answer {
+    font-size: 0.9em;
+    color: #555;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  /* Ruler reading visual */
+  .ruler-ex {
+    margin: 8px 0;
+    background: #fff;
+    border: 2px solid #b2dfdb;
+    border-radius: 10px;
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .mini-ruler-wrap { position: relative; display: inline-block; }
+  .bar-on-ruler {
+    height: 14px;
+    border-radius: 4px;
+    position: absolute;
+    top: 0;
+  }
+
+  /* Buttons */
+  .check-btn {
+    margin-top: 12px;
+    background: #00695c;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 22px;
+    font-size: 1em;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .check-btn:hover { background: #004d40; }
+
+  .result-msg {
+    margin-top: 8px;
+    font-weight: bold;
+    font-size: 1em;
+    display: none;
+  }
+  .result-msg.correct { color: #2e7d32; }
+  .result-msg.wrong   { color: #c62828; }
+
+  /* Stars */
+  .star-strip {
+    text-align: center;
+    font-size: 2em;
+    margin: 10px 0;
+    letter-spacing: 4px;
+  }
+
+  /* Divider */
+  hr { border: none; border-top: 3px dashed #ffd54f; margin: 28px 0; }
+
+  @media (max-width: 600px) {
+    .units-grid { grid-template-columns: 1fr; }
+    h1 { font-size: 1.6em; }
+  }
+</style>
+</head>
+<body>
+
+<h1>📏 Measures: Length 📏<br><span style="font-size:0.6em; color:#bf360c;">Leonor's Study Guide – Unit 3</span></h1>
+
+<!-- ===================== VOCABULARY ===================== -->
+<div class="section">
+  <h2 class="vocab-header">⭐ Key Words to Know</h2>
+  <div class="vocab-grid">
+    <div class="vocab-card">
+      <div class="vocab-word">centimetre (cm)</div>
+      <div class="vocab-def">A small unit of length. About the width of your finger! 100 cm = 1 metre.</div>
+    </div>
+    <div class="vocab-card">
+      <div class="vocab-word">metre (m)</div>
+      <div class="vocab-def">A big unit of length. As long as a guitar or a door is tall!</div>
+    </div>
+    <div class="vocab-card">
+      <div class="vocab-word">ruler</div>
+      <div class="vocab-def">A tool we use to measure and draw lines in centimetres.</div>
+    </div>
+    <div class="vocab-card">
+      <div class="vocab-word">length</div>
+      <div class="vocab-def">How long something is from one end to the other (left → right).</div>
+    </div>
+    <div class="vocab-card">
+      <div class="vocab-word">height</div>
+      <div class="vocab-def">How tall something is (bottom → top). ↕</div>
+    </div>
+    <div class="vocab-card">
+      <div class="vocab-word">width</div>
+      <div class="vocab-def">How wide something is from side to side. ↔</div>
+    </div>
+    <div class="vocab-card">
+      <div class="vocab-word">distance</div>
+      <div class="vocab-def">How far apart two places or things are.</div>
+    </div>
+    <div class="vocab-card">
+      <div class="vocab-word">estimate</div>
+      <div class="vocab-def">Your best guess before measuring. <strong>Don't use a ruler!</strong></div>
+    </div>
+    <div class="vocab-card">
+      <div class="vocab-word">just over / just under</div>
+      <div class="vocab-def">"Just over 5 cm" = a tiny bit more than 5. "Just under" = a tiny bit less.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== HOW TO USE A RULER ===================== -->
+<div class="section">
+  <h2 class="tips-header">📐 How to Use a Ruler</h2>
+
+  <div class="ruler-container">
+    <p style="font-weight:bold; margin-bottom:12px; color:#5d4037;">A ruler in centimetres looks like this:</p>
+    <div class="ruler">
+      <div class="tick"><div class="tick-line-long"></div><div class="tick-num">0</div></div>
+      <div class="tick"><div class="tick-line-short"></div><div class="tick-num"></div></div>
+      <div class="tick"><div class="tick-line-long"></div><div class="tick-num">1</div></div>
+      <div class="tick"><div class="tick-line-short"></div><div class="tick-num"></div></div>
+      <div class="tick"><div class="tick-line-long"></div><div class="tick-num">2</div></div>
+      <div class="tick"><div class="tick-line-short"></div><div class="tick-num"></div></div>
+      <div class="tick"><div class="tick-line-long"></div><div class="tick-num">3</div></div>
+      <div class="tick"><div class="tick-line-short"></div><div class="tick-num"></div></div>
+      <div class="tick"><div class="tick-line-long"></div><div class="tick-num">4</div></div>
+      <div class="tick"><div class="tick-line-short"></div><div class="tick-num"></div></div>
+      <div class="tick"><div class="tick-line-long"></div><div class="tick-num">5</div></div>
+      <div class="tick"><div class="tick-line-short"></div><div class="tick-num"></div></div>
+      <div class="tick"><div class="tick-line-long"></div><div class="tick-num">6</div></div>
+      <div class="tick"><div class="tick-line-short"></div><div class="tick-num"></div></div>
+      <div class="tick"><div class="tick-line-long"></div><div class="tick-num">7</div></div>
+      <div class="tick"><div class="tick-line-short"></div><div class="tick-num"></div></div>
+      <div class="tick"><div class="tick-line-long"></div><div class="tick-num">8</div></div>
+      <div class="tick"><div class="tick-line-short"></div><div class="tick-num"></div></div>
+      <div class="tick"><div class="tick-line-long"></div><div class="tick-num">9</div></div>
+      <div class="tick"><div class="tick-line-short"></div><div class="tick-num"></div></div>
+      <div class="tick"><div class="tick-line-long"></div><div class="tick-num">10</div></div>
+    </div>
+    <p class="ruler-note">Each big gap = 1 centimetre (cm)</p>
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-icon">1️⃣</div>
+    <div class="tip-text">Always put the <strong>0</strong> (or the end of the ruler) at the <strong>beginning of the line or object</strong>. Not the 1!</div>
+  </div>
+  <div class="tip-card">
+    <div class="tip-icon">👀</div>
+    <div class="tip-text">Look at <strong>where the line or bar ends</strong>. That number is the measurement.</div>
+  </div>
+  <div class="tip-card">
+    <div class="tip-icon">✏️</div>
+    <div class="tip-text">To <strong>draw</strong> a line of 5 cm: put the ruler down, make a dot at 0 and a dot at 5, then connect them!</div>
+  </div>
+  <div class="tip-card">
+    <div class="tip-icon">🤔</div>
+    <div class="tip-text">To <strong>estimate</strong>, look and think — <strong>do NOT use your ruler</strong>. Then measure to check!</div>
+  </div>
+</div>
+
+<!-- ===================== CM vs M ===================== -->
+<div class="section">
+  <h2 class="units-header">📏 When do we use cm? When do we use m?</h2>
+  <div class="units-grid">
+    <div class="unit-box cm-box">
+      <div class="unit-title">centimetres (cm)</div>
+      <div class="unit-rule">Use for <strong>small</strong> things you can hold!</div>
+      <div class="unit-examples">
+        ✏️ a pencil<br>
+        📏 a ruler<br>
+        🍫 a bar of chocolate<br>
+        👟 your shoe<br>
+        🐛 a worm<br>
+        📎 a paper clip<br>
+        🍎 an apple<br>
+        🍓 a strawberry
+      </div>
+    </div>
+    <div class="unit-box m-box">
+      <div class="unit-title">metres (m)</div>
+      <div class="unit-rule">Use for <strong>big</strong> things — too big for a ruler!</div>
+      <div class="unit-examples">
+        🏊 a swimming pool<br>
+        🚌 a bus<br>
+        🧱 a wall<br>
+        🚗 a car<br>
+        🌳 a tall tree<br>
+        🚪 a door<br>
+        🛏️ your bedroom<br>
+        🏫 your classroom
+      </div>
+    </div>
+  </div>
+
+  <div style="background:#fff9c4; border:3px solid #ffd54f; border-radius:14px; padding:16px; margin-top:16px; font-size:1em; color:#5d4037;">
+    <strong>🌟 Quick trick:</strong> If it fits on your desk and you can measure it with a ruler → <strong>centimetres</strong>.<br>
+    If it's bigger than you → <strong>metres</strong>!
+  </div>
+</div>
+
+<!-- ===================== KEY RULES ===================== -->
+<div class="section">
+  <h2 class="rules-header">📚 Important Rules to Remember</h2>
+  <div class="rules-box">
+    <div class="rule-item">
+      <div class="rule-icon">📏</div>
+      <div class="rule-text">When we <strong>measure</strong> → use your ruler. When we <strong>estimate</strong> → do NOT use your ruler. Guess first, then check!</div>
+    </div>
+    <div class="rule-item">
+      <div class="rule-icon">0️⃣</div>
+      <div class="rule-text">Always <strong>start measuring from 0</strong>. Look carefully — where does the bar or line begin?</div>
+    </div>
+    <div class="rule-item">
+      <div class="rule-icon">↕️</div>
+      <div class="rule-text"><strong>Length</strong> = how long (left to right). <strong>Height</strong> = how tall (up and down). <strong>Width</strong> = how wide (side to side).</div>
+    </div>
+    <div class="rule-item">
+      <div class="rule-icon">🔢</div>
+      <div class="rule-text">To order lengths from <strong>shortest to longest</strong>: find the smallest number first!</div>
+    </div>
+    <div class="rule-item">
+      <div class="rule-icon">➕</div>
+      <div class="rule-text">To find <strong>how much longer</strong> one line is: subtract! (longer – shorter = difference)</div>
+    </div>
+    <div class="rule-item">
+      <div class="rule-icon">📐</div>
+      <div class="rule-text">The <strong>length</strong> of an object is usually longer than the <strong>width</strong>.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PRACTICE EXERCISES ===================== -->
+<div class="section">
+  <h2 class="practice-header">🌟 Let's Practice!</h2>
+
+  <!-- EXERCISE 1: cm or m -->
+  <div class="exercise">
+    <p class="exercise-q"><span class="exercise-num">1</span> <strong>Choose: centimetres or metres?</strong> Click the right answer! 🖱️</p>
+    <div class="choose-grid" id="cmOrM"></div>
+    <div id="cmOrM-result" class="result-msg"></div>
+  </div>
+
+  <!-- EXERCISE 2: Order lengths -->
+  <div class="exercise">
+    <p class="exercise-q"><span class="exercise-num">2</span> <strong>Put these lengths in order from shortest to longest.</strong></p>
+
+    <div class="order-set">
+      <div class="order-items">
+        <span class="order-item">30 cm</span>
+        <span class="order-item">70 cm</span>
+        <span class="order-item">50 cm</span>
+        <span class="order-item">39 cm</span>
+      </div>
+      <div class="order-answer">
+        Shortest → Longest:
+        <span class="answer-box" id="o1a"></span>
+        <span class="answer-box" id="o1b"></span>
+        <span class="answer-box" id="o1c"></span>
+        <span class="answer-box" id="o1d"></span>
+      </div>
+      <button class="check-btn" onclick="showOrder1()">Show Answer ✅</button>
+      <div id="o1-result" class="result-msg"></div>
+    </div>
+
+    <div class="order-set">
+      <div class="order-items">
+        <span class="order-item">77 cm</span>
+        <span class="order-item">88 cm</span>
+        <span class="order-item">78 cm</span>
+        <span class="order-item">87 cm</span>
+      </div>
+      <div class="order-answer">
+        Shortest → Longest:
+        <span class="answer-box" id="o2a"></span>
+        <span class="answer-box" id="o2b"></span>
+        <span class="answer-box" id="o2c"></span>
+        <span class="answer-box" id="o2d"></span>
+      </div>
+      <button class="check-btn" onclick="showOrder2()">Show Answer ✅</button>
+      <div id="o2-result" class="result-msg"></div>
+    </div>
+
+    <div class="order-set">
+      <div class="order-items">
+        <span class="order-item">1 metre</span>
+        <span class="order-item">3 metres</span>
+        <span class="order-item">4 metres</span>
+        <span class="order-item">½ metre</span>
+      </div>
+      <div class="order-answer">
+        Shortest → Longest:
+        <span class="answer-box" id="o3a"></span>
+        <span class="answer-box" id="o3b"></span>
+        <span class="answer-box" id="o3c"></span>
+        <span class="answer-box" id="o3d"></span>
+      </div>
+      <button class="check-btn" onclick="showOrder3()">Show Answer ✅</button>
+      <div id="o3-result" class="result-msg"></div>
+    </div>
+  </div>
+
+  <!-- EXERCISE 3: How long are these lines? -->
+  <div class="exercise">
+    <p class="exercise-q"><span class="exercise-num">3</span> <strong>Read the ruler.</strong> How long is each bar?</p>
+    <p style="font-size:0.88em; color:#555; margin-bottom:10px;">Look where the bar starts and where it ends on the ruler.</p>
+
+    <div id="rulerEx"></div>
+    <button class="check-btn" onclick="showRulerAnswers()">Show Answers ✅</button>
+    <div id="rulerEx-result" class="result-msg"></div>
+  </div>
+
+  <!-- EXERCISE 4: Circle the right measurement -->
+  <div class="exercise">
+    <p class="exercise-q"><span class="exercise-num">4</span> <strong>Circle the best answer.</strong> Click the right measurement!</p>
+
+    <div id="circleQ"></div>
+  </div>
+
+  <!-- EXERCISE 5: longer or shorter -->
+  <div class="exercise">
+    <p class="exercise-q"><span class="exercise-num">5</span> <strong>Compare!</strong> Look at lines A and B below.</p>
+
+    <div class="line-row">
+      <span class="line-label">A</span>
+      <div class="drawn-line" style="width:200px;"></div>
+      <span class="line-cm">= 10 cm</span>
+    </div>
+    <div class="line-row">
+      <span class="line-label">B</span>
+      <div class="drawn-line" style="width:130px;"></div>
+      <span class="line-cm">= 6 cm</span>
+    </div>
+
+    <div style="margin-top:14px; font-size:1em;">
+      <p>Which line is <strong>longer</strong>? <span class="answer-line"></span></p>
+      <p style="margin-top:8px;">How much longer is it? <span class="answer-line"></span> centimetres</p>
+    </div>
+    <button class="check-btn" onclick="showCompare()">Show Answer ✅</button>
+    <div id="compare-result" class="result-msg"></div>
+  </div>
+
+  <!-- EXERCISE 6: Drawing lines -->
+  <div class="exercise">
+    <p class="exercise-q"><span class="exercise-num">6</span> <strong>Drawing Lines</strong> — Practice at home! 🖊️</p>
+    <p style="font-size:0.9em; color:#555; margin-bottom:12px;">Use a ruler and pencil to draw these lines in your copybook:</p>
+    <table>
+      <tr>
+        <th>Line</th>
+        <th>Length to Draw</th>
+        <th>Did you do it? ✅</th>
+      </tr>
+      <tr><td>a</td><td>3 centimetres</td><td></td></tr>
+      <tr><td>b</td><td>7 centimetres</td><td></td></tr>
+      <tr><td>c</td><td>10 centimetres</td><td></td></tr>
+      <tr><td>d</td><td>4 centimetres</td><td></td></tr>
+      <tr><td>e</td><td>12 centimetres</td><td></td></tr>
+    </table>
+    <p style="font-size:0.85em; color:#555; margin-top:10px;">💡 Tip: Put 0 at the start, count to the right number, draw your line!</p>
+  </div>
+
+</div>
+
+<!-- ===================== SUMMARY ===================== -->
+<div class="section">
+  <h2 style="background:#f57f17;">🏆 Quick Summary – What I Need to Know</h2>
+  <div style="background:#fff8e1; border:3px solid #ffe082; border-radius:16px; padding:20px;">
+    <p style="margin-bottom:10px;">✅ Measure objects using a <strong>ruler</strong> in centimetres — start from <strong>0</strong>!</p>
+    <p style="margin-bottom:10px;">✅ Draw lines by putting the ruler at 0 and marking the right number.</p>
+    <p style="margin-bottom:10px;">✅ Compare: which is <strong>longer</strong>, which is <strong>shorter</strong>? Subtract to find <strong>how much</strong>.</p>
+    <p style="margin-bottom:10px;">✅ Use <strong>centimetres</strong> for small things (pencil, shoe, straw).</p>
+    <p style="margin-bottom:10px;">✅ Use <strong>metres</strong> for big things (pool, bus, room, tree).</p>
+    <p>✅ <strong>Estimate</strong> first (no ruler!), then <strong>measure</strong> to check.</p>
+  </div>
+  <div class="star-strip" style="margin-top:20px;">⭐ ⭐ ⭐ You can do it, Leonor! ⭐ ⭐ ⭐</div>
+</div>
+
+<script>
+// ---- CM or M exercise ----
+const cmOrMData = [
+  { icon: '✏️', name: 'a pencil',       answer: 'cm' },
+  { icon: '🚌', name: 'a bus',          answer: 'm'  },
+  { icon: '🍫', name: 'a chocolate bar',answer: 'cm' },
+  { icon: '🏊', name: 'a swimming pool',answer: 'm'  },
+  { icon: '👟', name: 'your shoe',      answer: 'cm' },
+  { icon: '🌳', name: 'a tall tree',    answer: 'm'  },
+  { icon: '🐛', name: 'a worm',         answer: 'cm' },
+  { icon: '🚗', name: 'a car',          answer: 'm'  },
+  { icon: '📎', name: 'a paper clip',   answer: 'cm' },
+  { icon: '🧱', name: 'a wall',         answer: 'm'  },
+  { icon: '🍓', name: 'a strawberry',   answer: 'cm' },
+  { icon: '🚪', name: 'a door',         answer: 'm'  },
+];
+
+const userAnswers = {};
+const grid = document.getElementById('cmOrM');
+cmOrMData.forEach((item, i) => {
+  const card = document.createElement('div');
+  card.className = 'choose-card';
+  card.innerHTML = `
+    <span class="obj-icon">${item.icon}</span>
+    <div class="obj-name">${item.name}</div>
+    <div class="choose-options">
+      <button class="choose-btn" id="btn-cm-${i}" onclick="pick(${i},'cm')">cm</button>
+      <button class="choose-btn" id="btn-m-${i}"  onclick="pick(${i},'m')">m</button>
+    </div>
+    <div id="fb-${i}" style="font-size:0.85em;margin-top:4px;"></div>
+  `;
+  grid.appendChild(card);
+});
+
+function pick(i, choice) {
+  const item = cmOrMData[i];
+  const btnCm = document.getElementById(`btn-cm-${i}`);
+  const btnM  = document.getElementById(`btn-m-${i}`);
+  const fb    = document.getElementById(`fb-${i}`);
+  btnCm.className = 'choose-btn';
+  btnM.className  = 'choose-btn';
+  if (choice === 'cm') btnCm.classList.add('selected-cm');
+  else btnM.classList.add('selected-m');
+  userAnswers[i] = choice;
+  if (choice === item.answer) {
+    fb.textContent = '✅ Correct!';
+    fb.style.color = '#2e7d32';
+    document.getElementById(`btn-${choice}-${i}`).classList.add('correct');
+  } else {
+    fb.textContent = `❌ Try again! Hint: is it small or big?`;
+    fb.style.color = '#c62828';
+    document.getElementById(`btn-${choice}-${i}`).classList.add('wrong');
+  }
+}
+
+// ---- Order answers ----
+function showOrder1() {
+  document.getElementById('o1a').textContent = '30 cm';
+  document.getElementById('o1b').textContent = '39 cm';
+  document.getElementById('o1c').textContent = '50 cm';
+  document.getElementById('o1d').textContent = '70 cm';
+  const r = document.getElementById('o1-result');
+  r.textContent = '✅ 30 → 39 → 50 → 70'; r.className='result-msg correct'; r.style.display='block';
+}
+function showOrder2() {
+  document.getElementById('o2a').textContent = '77 cm';
+  document.getElementById('o2b').textContent = '78 cm';
+  document.getElementById('o2c').textContent = '87 cm';
+  document.getElementById('o2d').textContent = '88 cm';
+  const r = document.getElementById('o2-result');
+  r.textContent = '✅ 77 → 78 → 87 → 88'; r.className='result-msg correct'; r.style.display='block';
+}
+function showOrder3() {
+  document.getElementById('o3a').textContent = '½ m';
+  document.getElementById('o3b').textContent = '1 m';
+  document.getElementById('o3c').textContent = '3 m';
+  document.getElementById('o3d').textContent = '4 m';
+  const r = document.getElementById('o3-result');
+  r.textContent = '✅ ½ → 1 → 3 → 4 metres'; r.className='result-msg correct'; r.style.display='block';
+}
+
+// ---- Ruler reading ----
+// Each bar: [startCm, lengthCm, color]
+const rulerBars = [
+  { start: 4, length: 9, color: '#90a4ae', answer: 9 },
+  { start: 3, length: 4, color: '#a5d6a7', answer: 4 },
+  { start: 2, length: 11, color: '#ffcc80', answer: 11 },
+];
+const rulerEl = document.getElementById('rulerEx');
+const cmPx = 30; // pixels per cm
+
+rulerBars.forEach((bar, i) => {
+  const totalCm = 15;
+  const wrapper = document.createElement('div');
+  wrapper.className = 'ruler-ex';
+
+  // Build ruler SVG-style with divs
+  const rulerDiv = document.createElement('div');
+  rulerDiv.style.cssText = `
+    display:inline-block; background:#ffecb3; border:2px solid #f9a825;
+    border-radius:4px; padding:4px 6px 2px 6px; position:relative;
+    width:${(totalCm+1)*cmPx}px; height:36px; flex-shrink:0;
+  `;
+
+  // Bar
+  const barDiv = document.createElement('div');
+  barDiv.style.cssText = `
+    position:absolute; top:4px; left:${bar.start*cmPx + 6}px;
+    width:${bar.length*cmPx}px; height:12px;
+    background:${bar.color}; border-radius:3px; border:1.5px solid #555;
+  `;
+  rulerDiv.appendChild(barDiv);
+
+  // Tick marks
+  for (let c = 0; c <= totalCm; c++) {
+    const tick = document.createElement('div');
+    tick.style.cssText = `
+      position:absolute; left:${c*cmPx + 6}px; bottom:0;
+      display:flex; flex-direction:column; align-items:center; width:0;
+    `;
+    const line = document.createElement('div');
+    line.style.cssText = `width:2px; height:${c===0?16:12}px; background:#5d4037; margin-bottom:0;`;
+    const num = document.createElement('span');
+    num.style.cssText = `font-size:9px; font-weight:bold; color:#4e342e; margin-top:1px; position:absolute; bottom:-14px; transform:translateX(-50%);`;
+    num.textContent = c;
+    tick.appendChild(line);
+    tick.appendChild(num);
+    rulerDiv.appendChild(tick);
+  }
+
+  const label = document.createElement('span');
+  label.style.cssText = 'font-size:0.95em; color:#333; margin-left:10px;';
+  label.innerHTML = `Bar ${String.fromCharCode(65+i)}: <strong id="ruler-ans-${i}" style="color:#004d40;">__ </strong> cm`;
+
+  wrapper.appendChild(rulerDiv);
+  wrapper.appendChild(label);
+  rulerEl.appendChild(wrapper);
+});
+
+function showRulerAnswers() {
+  rulerBars.forEach((bar, i) => {
+    document.getElementById(`ruler-ans-${i}`).textContent = bar.answer;
+  });
+  const r = document.getElementById('rulerEx-result');
+  r.textContent = '✅ Answers: A = 9 cm, B = 4 cm, C = 11 cm';
+  r.className = 'result-msg correct'; r.style.display='block';
+}
+
+// ---- Circle the right measurement ----
+const circleQs = [
+  { q: 'The height of an apple is about:', options: ['3 cm', '60 cm', '10 cm', '1 m'], answer: '10 cm' },
+  { q: 'The height of a strawberry is about:', options: ['25 cm', '5 cm', '1 m', '15 cm'], answer: '5 cm' },
+  { q: 'The length of a pencil is about:', options: ['1 m', '120 cm', '20 cm', '2 m'], answer: '20 cm' },
+  { q: 'The height of a tree is about:', options: ['100 cm', '30 cm', '5 m', '5 cm'], answer: '5 m' },
+  { q: 'The length of a plaster (band-aid) is about:', options: ['55 cm', '5 cm', '1 m', '50 m'], answer: '5 cm' },
+];
+
+const circleEl = document.getElementById('circleQ');
+circleQs.forEach((q, qi) => {
+  const div = document.createElement('div');
+  div.style.cssText = 'background:#fff; border:2px solid #b2dfdb; border-radius:12px; padding:12px; margin-bottom:10px;';
+  const qp = document.createElement('p');
+  qp.style.cssText = 'font-size:0.95em; margin-bottom:8px; font-weight:bold; color:#004d40;';
+  qp.textContent = q.q;
+  div.appendChild(qp);
+  const optDiv = document.createElement('div');
+  optDiv.style.cssText = 'display:flex; flex-wrap:wrap; gap:8px;';
+  q.options.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'choose-btn';
+    btn.textContent = opt;
+    btn.onclick = function() {
+      // reset all buttons in this question
+      optDiv.querySelectorAll('button').forEach(b => {
+        b.className = 'choose-btn';
+        b.style.background=''; b.style.borderColor=''; b.style.color='';
+      });
+      if (opt === q.answer) {
+        btn.style.background = '#c8e6c9'; btn.style.borderColor='#388e3c'; btn.style.color='#1b5e20';
+        fb.textContent = '⭐ Correct! Well done!'; fb.style.color='#2e7d32';
+      } else {
+        btn.style.background = '#ffcdd2'; btn.style.borderColor='#c62828'; btn.style.color='#c62828';
+        fb.textContent = '❌ Not quite — try again!'; fb.style.color='#c62828';
+      }
+    };
+    optDiv.appendChild(btn);
+  });
+  const fb = document.createElement('div');
+  fb.style.cssText = 'font-size:0.88em; margin-top:6px; font-weight:bold;';
+  div.appendChild(optDiv);
+  div.appendChild(fb);
+  circleEl.appendChild(div);
+});
+
+// ---- Compare lines ----
+function showCompare() {
+  const r = document.getElementById('compare-result');
+  r.textContent = '✅ Line A is longer (10 cm). It is 4 cm longer than B (10 − 6 = 4).';
+  r.className='result-msg correct'; r.style.display='block';
+}
+</script>
+</body>
+</html>
